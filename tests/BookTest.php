@@ -127,5 +127,19 @@
             $this->assertEquals("The Sun Also Rises", $updated_book->getTitle());
 
         }
+        function test_addAuthors()
+        {
+            $new_book = new Book(null, "The Third Chimpanzee", "Jared Diamond");
+            $new_book->save();
+            $new_author = new Author(null, "Jared Diamond", "Jared Diamond");
+            $new_author->save();
+            $new_author_id = $new_author->getId();
+            $new_book->addAuthor($new_author_id);
+
+            $result = $new_book->getAuthors();
+
+            $this->assertEquals([$new_author], $result);
+
+        }
     }
 ?>

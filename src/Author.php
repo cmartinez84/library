@@ -40,7 +40,6 @@
             JOIN authors_books ON (authors.id = authors_books.author_id)
             JOIN books ON (authors_books.book_id = books.id)
             WHERE authors.id = {$this->getId()};");
-            var_dump($returned_books);
 
             $books = array();
             foreach($returned_books as $book){
