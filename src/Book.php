@@ -6,7 +6,7 @@
       private $author;
       private $catalog_number;
 
-      function __construct($id=null, $title, $author, $catalog_number)
+      function __construct($id=null, $title, $author, $catalog_number=null)
        {
         $this->id = $id;
         $this->title = $title;

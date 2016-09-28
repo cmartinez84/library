@@ -4,6 +4,7 @@
     * @backupStaticAttributes disabled
     */
 require_once "src/Author.php";
+require_once "src/Book.php";
 
     $server = 'mysql:host=localhost;dbname=library_test';
     $username = 'root';
@@ -65,5 +66,20 @@ class AuthorTest extends PHPUnit_Framework_TestCase
 
             $this->assertEquals($new_author, $result);
         }
+        function test_addBooks()
+        {
+            $new_author = new Author(null, "Jared Diamond");
+            $new_author->save();
+            $new_book = new Book(null, "The Third Chimpanzee", "Jared Diamond");
+            $new_book->save();
+            $new_book_id = $new_book->getId();
+            $new_author->addBook($new_book_id);
+
+            $result = $new_author->getBooks();
+
+            $this->assertEquals([$new_book], $result);
+
+        }
+
     }
 ?>
