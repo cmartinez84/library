@@ -17,7 +17,7 @@ _This page will provide an interface for librarians to edit, update, delete and 
 |delete book information|"In Trump We Trust" by Anne Coulter| delete|
 |read all book information| click on book title|Title:"Great Gatsby", Author: F Scott Fitzgerald, etc|
 |Search by author|Hemmingway| "The Sun Also Rises", "For whom the Belle Tolls", etc...|
-
+|Librarians can create a member. ecah member has their own generated id| "Tyler Durden"|Member: "Tyler Durden" id: 232|
 
 
 ## Setup/Installation Requirements
