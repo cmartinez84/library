@@ -7,7 +7,7 @@
 
     require_once "src/Book.php";
 
-    $server = 'mysql:host=localhost;dbname=library_test';
+    $server = 'mysql:host=localhost:8889;dbname=library_test';
     $username = 'root';
     $password = 'root';
     $DB = new PDO($server, $username, $password);
@@ -139,7 +139,6 @@
             $result = $new_book->getAuthors();
 
             $this->assertEquals([$new_author], $result);
-
         }
     }
 ?>

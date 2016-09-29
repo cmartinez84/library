@@ -8,7 +8,7 @@ require_once "src/Book.php";
 
 
 
-    $server = 'mysql:host=localhost;dbname=library_test';
+    $server = 'mysql:host=localhost:8889;dbname=library_test';
     $username = 'root';
     $password = 'root';
     $DB = new PDO($server, $username, $password);
@@ -16,9 +16,9 @@ require_once "src/Book.php";
 
 class CopyTest extends PHPUnit_Framework_TestCase
     {
-        protected function tearDown(){
-            Copy::deleteAll();
-        }
+        // protected function tearDown(){
+        //     Copy::deleteAll();
+        // }
 
         function test_getId()
         {
@@ -103,8 +103,9 @@ class CopyTest extends PHPUnit_Framework_TestCase
             $book_id =3;
             $new_copy = new Copy($id, $book_id);
             $new_copy->save();
+            var_dump($new_copy);
 
-            $result = $new_copy->checkOut(234, "2000-01-11");
+            $new_copy->checkOut(34, "2000-01-25");
             $this->assertEquals("2000-01-25", $result);
         }
 

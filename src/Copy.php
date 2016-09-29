@@ -69,18 +69,17 @@
         }
         function checkOut($patron_id, $checkout_date)
         {
-            $date = date_create($checkout_date);
-            $checkout_date = date_create($checkout_date);
-            $due_date = date_add($date, date_interval_create_from_date_string('40 days'));
+            // $date = date_create($checkout_date);
+            // $due_date = date_add($date, date_interval_create_from_date_string('40 days'));
+            // $stuff = "Ada";
+            // $formatted_due_date = $due_date->format('Y-m-d');
+            $GLOBALS['DB']->exec("INSERT INTO checkouts (patron_id, copy_id, checkout_date) VALUES
+            (
+                {$patron_id},
+                {$this->getId()},
+                '{$checkout_date}'
+            );");
 
-            $GLOBALS['DB']->exec("INSERT INTO checkouts (patron_id, copy_id, due_date, checkout_date, checkin_date) VALUES
-            '{$patron_id}',
-            '{$this->getId()}',
-            '{$due_date}',
-            '{$checkout_date}'
-            ");
         }
-
-
     }
 ?>
