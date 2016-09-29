@@ -51,6 +51,13 @@
 
           $this->id = $GLOBALS['DB']->lastInsertId();
         }
+        function saveMultiple($numberOfCopies)
+        {
+            for ($x = 0; $x < $numberOfCopies; $x++) {
+                $new_copy = new Copy(null, $this->getId());
+                $new_copy->save();
+            }
+        }
         function delete()
         {
           $GLOBALS['DB']->exec("DELETE FROM books WHERE id={$this->getId()};");
