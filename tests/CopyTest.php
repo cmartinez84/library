@@ -19,6 +19,8 @@ class CopyTest extends PHPUnit_Framework_TestCase
     {
         protected function tearDown(){
             Copy::deleteAll();
+            Book::deleteAll();
+            Patron::deleteAll();
         }
 
         function test_getId()

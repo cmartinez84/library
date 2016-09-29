@@ -81,6 +81,22 @@
                 return $a[0];
             }
         }
+        // static function getOverDues()
+        // {
+        //     $returned_checkout = $GLOBALS['DB']->query("SELECT * FROM checkouts WHERE checkin_date IS NULL;");
+        //     $overdue_books = array();
+        //     foreach ($returned_checkout as $checkout){
+        //         $copy_id = $checkout['copy_id'];
+        //         $found_copy = Copy::find($copy_id);
+        //         $book_id = $found_copy->getBookId();
+        //         $found_book = Book::find($book_id);
+        //         $book_copy_pair = array();
+        //         $book_copy_pair['book'] = $found_book;
+        //         $book_copy_pair['copy'] = $found_copy;
+        //         array_push($overdue_books, $book_copy_pair);
+        //     }
+        //     return $overdue_books;
+        // }
         function checkOut($patron_id, $checkout_date)
         {
             $date = date_create($checkout_date);

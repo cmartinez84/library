@@ -18,6 +18,7 @@
     {
         protected function tearDown(){
             Book::deleteAll();
+            Copy::deleteAll();
         }
 
         function test_getTitle()
@@ -141,6 +142,6 @@
 
             $this->assertEquals([$new_author], $result);
         }
-        
+
     }
 ?>

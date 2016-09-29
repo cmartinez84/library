@@ -16,6 +16,7 @@ class AuthorTest extends PHPUnit_Framework_TestCase
     {
         protected function tearDown(){
             Author::deleteAll();
+            Book::deleteAll();
         }
         function test_getId()
         {

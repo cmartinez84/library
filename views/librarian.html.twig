@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Turnt Up</title>
+  </head>
+  <body>
+      <div class="container">
+          <img id="conan" src="/img/conan.jpg" />
+           <h1>Librarian Access</h1>
+           <div class="col-sm-4">
+               <div class="well">
+                   <h2>Overdue Books</h2>
+               </div>
+
+           </div>
+           <div class="col-sm-4">
+                <div class="well">
+                    <h2>Patrons</h2>
+                    <form action="/librarian/add/patron" method="post">
+                        <div class="form-group">
+                            <label for="">Name:</label>
+                            <input class="form-control" type="text" name="input_name">
+                        </div>
+                        <button class="form-control btn btn-success" type="submit" name="button">Submit</button>
+                    </form>
+                </div>
+                <div class="well">
+                    <h2>All Patrons</h2>
+                    {% if allPatrons is not empty %}
+                    <ul>
+                        {% for patron in allPatrons %}
+                        <a href="/librarian/patron/{{patron.getId}}"><li>{{patron.getName}}</li></a>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                {% if patron %}
+                    <div class="well">
+                        <h3>{{patron.getName}}</h3>
+                    </div>
+                {% endif %}
+           </div>
+           <div class="col-sm-4">
+               <div class="well">
+                   <h2>Books</h2>
+                   <form  action="librarian/add/book" method="post">
+                       <div class="form-group">
+                          <label for="">Title</label>
+                          <input class="form-control" type="text" name="input_title">
+                       </div>
+                       <div class="form-group">
+                           <label for="">Author</label>
+                           <input class="form-control" type="text" name="input_author">
+                       </div>
+                       <button class="form-control btn btn-success" type="submit" name="button">Submit</button>
+                   </form>
+               </div>
+               <div class="well">
+
+                       <h2>All Books</h2>
+                       {% if allBooks is not empty %}
+                       <ul>
+                           {% for book in allBooks %}
+                           <a href="/book{{book.getId}}"><li>{{book.getTitle}}</li></a>
+                           {% endfor %}
+                       </ul>
+                       {% endif %}
+
+               </div>
+           </div>
+      </div>
+
+
+  </body>
+</html>

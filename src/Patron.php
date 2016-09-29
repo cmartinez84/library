@@ -49,6 +49,7 @@
                 $copy_id = $history['copy_id'];
                 $found_copy = Copy::find($copy_id);
                 $found_book = $found_copy->getBook();
+                //construct checkout
                 $book_id = $found_book->getId();
                 $title =  $found_book->getTitle();
                 $checkout_date = $history['checkout_date'];

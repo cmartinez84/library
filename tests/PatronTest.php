@@ -22,6 +22,8 @@ require_once "src/Copy.php";
 class PatronTest extends PHPUnit_Framework_TestCase
     {
         protected function tearDown(){
+            Book::deleteAll();
+            Copy::deleteAll();
             Patron::deleteAll();
         }
         function test_getId()
