@@ -6,6 +6,7 @@
     */
 
     require_once "src/Book.php";
+    require_once "src/Copy.php";
 
     $server = 'mysql:host=localhost;dbname=library_test';
     $username = 'root';
@@ -140,5 +141,6 @@
 
             $this->assertEquals([$new_author], $result);
         }
+        
     }
 ?>

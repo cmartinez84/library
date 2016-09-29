@@ -167,7 +167,7 @@ class CopyTest extends PHPUnit_Framework_TestCase
 
             $this->assertEquals(0.00, $result);
         }
-        function test_count_books_by_id()
+        function test_numberOfCopies()
         {
             $book_id =1;
             $new_copy = new Copy(null, $book_id);
@@ -180,11 +180,24 @@ class CopyTest extends PHPUnit_Framework_TestCase
             $result = Copy::numberOfCopies($book_id);
 
             $this->assertEquals(3, $result);
-
         }
+        function test_availableCopies()
+        {
+            $book_id =1;
+            $new_copy = new Copy(null, $book_id);
+            $new_copy->save();
+            $new_copy2 = new Copy(null, $book_id);
+            $new_copy2->save();
+            $new_copy3 = new Copy(null, $book_id);
+            $new_copy3->save();
+            $book_id2 = 2;
+            $new_copy4 = new Copy(null, $book_id2);
+            $new_copy4->save();
 
+            $result = Copy::numberOfCopies($book_id);
 
-
+            $this->assertEquals(3, $result);
+        }
 
 
     }

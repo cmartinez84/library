@@ -3,6 +3,7 @@
     {
         private $id;
         private $book_id;
+        private $available;
 
         function __construct($id, $book_id){
             $this->id = $id;
@@ -74,6 +75,12 @@
                 return $a[0];
             }
         }
+        static function availableCopies($book_id){
+            $result = $GLOBALS['DB']->query("SELECT COUNT(book_id) FROM copies WHERE book_id={$book_id} AND availble = 1;");
+            foreach($result as $a){
+                return $a[0];
+            }
+        }
         function checkOut($patron_id, $checkout_date)
         {
             $date = date_create($checkout_date);
@@ -86,6 +93,7 @@
                 '{$checkout_date}',
                 '{$formatted_due_date}'
             );");
+            $GLOBALS['DB']->exec("UPDATE copy SET available = 0 WHERE id={$this->getId()};");
             return $formatted_due_date;
         }
         function checkIn ($checkin_date)
@@ -94,6 +102,7 @@
             checkin_date = '{$checkin_date}'
             WHERE copy_id={$this->getId()} AND checkin_date IS NULL;");
             $checkout_data = $GLOBALS['DB']->query("SELECT * FROM checkouts WHERE copy_id = {$this->getId()};");
+            $GLOBALS['DB']->exec("UPDATE copy SET available = 1 WHERE id={$this->getId()};");
             $patron_id = "";
             foreach($checkout_data as $data){
                 $datetime1 = new DateTime($data['due_date']);
