@@ -80,7 +80,27 @@
                 '{$formatted_due_date}'
             );");
             return $formatted_due_date;
-
+        }
+        function checkIn ($checkin_date)
+        {
+            $GLOBALS['DB']->exec("UPDATE checkouts SET
+            checkin_date = '{$checkin_date}'
+            WHERE copy_id={$this->getId()} AND checkin_date IS NULL;");
+            $checkout_data = $GLOBALS['DB']->query("SELECT * FROM checkouts WHERE copy_id = {$this->getId()};");
+            $patron_id = "";
+            foreach($checkout_data as $data){
+                $datetime1 = new DateTime($data['due_date']);
+                $datetime2 = new DateTime($checkin_date);
+                $interval = $datetime1->diff($datetime2);
+                $days_overdue = $interval->format('%R%a');
+                $patron_id = $data['patron_id'];
+            }
+            if($days_overdue > 0){
+                $fine =$days_overdue * 0.25;
+                $GLOBALS['DB']->exec("UPDATE patrons SET fine = fine + {$fine} WHERE id='{$patron_id}'");
+            
+                return $days_overdue;
+            }
         }
     }
 ?>

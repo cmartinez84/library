@@ -5,6 +5,7 @@
     */
 require_once "src/Copy.php";
 require_once "src/Book.php";
+require_once "src/Patron.php";
 
 
 
@@ -16,9 +17,9 @@ require_once "src/Book.php";
 
 class CopyTest extends PHPUnit_Framework_TestCase
     {
-        // protected function tearDown(){
-        //     Copy::deleteAll();
-        // }
+        protected function tearDown(){
+            Copy::deleteAll();
+        }
 
         function test_getId()
         {
@@ -110,6 +111,61 @@ class CopyTest extends PHPUnit_Framework_TestCase
             $result = $new_copy->checkOut($patron_id, $checkout_date);
 
             $this->assertEquals("2000-01-15", $result );
+        }
+        function test_checkin()
+        {
+            $id =null;
+            $patron_id = 55;
+            $book_id =3;
+            $checkout_date = "2000-01-01";
+            $checkin_date = "2000-01-20";
+            $new_copy = new Copy($id, $book_id);
+            $new_copy->save();
+
+            $new_copy->checkOut($patron_id, $checkout_date);
+            $result = $new_copy->checkIn($checkin_date);
+
+            $this->assertEquals(5, $result);
+        }
+        function test_checkin_add_fine()
+        {
+            $name = "Same";
+            $new_patron = new Patron(null, $name);
+            $new_patron->save();
+            $new_patron_id = $new_patron->getId();
+
+            $book_id =3;
+            $checkout_date = "2000-01-01";
+            $checkin_date = "2000-01-20";
+            $new_copy = new Copy(null, $book_id);
+            $new_copy->save();
+
+            $new_copy->checkOut($new_patron_id, $checkout_date);
+            $new_copy->checkIn($checkin_date);
+            $returned_patron = Patron::find($new_patron_id);
+            $result = $returned_patron->getFine();
+
+            $this->assertEquals(1.25, $result);
+        }
+        function test_checkin_returned_before_due_date()
+        {
+            $name = "Same";
+            $new_patron = new Patron(null, $name);
+            $new_patron->save();
+            $new_patron_id = $new_patron->getId();
+
+            $book_id =3;
+            $checkout_date = "2000-01-01";
+            $checkin_date = "2000-01-05";
+            $new_copy = new Copy(null, $book_id);
+            $new_copy->save();
+
+            $new_copy->checkOut($new_patron_id, $checkout_date);
+            $new_copy->checkIn($checkin_date);
+            $returned_patron = Patron::find($new_patron_id);
+            $result = $returned_patron->getFine();
+
+            $this->assertEquals(0.00, $result);
         }
 
 
