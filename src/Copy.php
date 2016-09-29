@@ -67,6 +67,13 @@
         {
             $GLOBALS['DB']->exec("DELETE FROM copies");
         }
+        static function numberOfCopies($book_id)
+        {
+            $result = $GLOBALS['DB']->query("SELECT COUNT(book_id) FROM copies WHERE book_id={$book_id};");
+            foreach($result as $a){
+                return $a[0];
+            }
+        }
         function checkOut($patron_id, $checkout_date)
         {
             $date = date_create($checkout_date);
@@ -98,9 +105,10 @@
             if($days_overdue > 0){
                 $fine =$days_overdue * 0.25;
                 $GLOBALS['DB']->exec("UPDATE patrons SET fine = fine + {$fine} WHERE id='{$patron_id}'");
-            
+
                 return $days_overdue;
             }
         }
+
     }
 ?>
