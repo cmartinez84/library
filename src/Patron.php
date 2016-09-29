@@ -4,6 +4,8 @@
         private $id;
         private $name;
         private $fine;
+        private $titles;
+
 
         function __construct($id=null, $name, $fine = 0){
             $this->id = $id;
@@ -38,6 +40,24 @@
         function update($new_name)
         {
             $GLOBALS['DB']->exec("UPDATE patrons SET name ='{$new_name}';");
+        }
+         function getHistory()
+        {
+            $histories = $GLOBALS['DB']->query("SELECT * FROM checkouts WHERE patron_id={$this->getId()};");
+            $checkout_history = array();
+            foreach($histories as $history){
+                $copy_id = $history['copy_id'];
+                $found_copy = Copy::find($copy_id);
+                $found_book = $found_copy->getBook();
+                $book_id = $found_book->getId();
+                $title =  $found_book->getTitle();
+                $checkout_date = $history['checkout_date'];
+                $due_date = $history['due_date'];
+                $checkin_date = $history['checkin_date'];
+                $found_checkout = new Checkout($title, $book_id, $checkout_date, $due_date, $checkin_date);
+                array_push($checkout_history, $found_checkout);
+            }
+            return $checkout_history;
         }
 
         static function deleteAll(){
