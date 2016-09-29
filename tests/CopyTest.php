@@ -8,7 +8,7 @@ require_once "src/Book.php";
 
 
 
-    $server = 'mysql:host=localhost:8889;dbname=library_test';
+    $server = 'mysql:host=localhost;dbname=library_test';
     $username = 'root';
     $password = 'root';
     $DB = new PDO($server, $username, $password);
@@ -100,13 +100,16 @@ class CopyTest extends PHPUnit_Framework_TestCase
         function test_checkout()
         {
             $id =null;
+            $patron_id = 34;
             $book_id =3;
+            $checkout_date = "2000-01-01";
             $new_copy = new Copy($id, $book_id);
             $new_copy->save();
-            var_dump($new_copy);
+            // var_dump($new_copy);
 
-            $new_copy->checkOut(34, "2000-01-25");
-            $this->assertEquals("2000-01-25", $result);
+            $result = $new_copy->checkOut($patron_id, $checkout_date);
+
+            $this->assertEquals("2000-01-15", $result );
         }
 
 
