@@ -67,6 +67,19 @@
         {
             $GLOBALS['DB']->exec("DELETE FROM copies");
         }
+        function checkOut($patron_id, $checkout_date)
+        {
+            $date = date_create($checkout_date);
+            $checkout_date = date_create($checkout_date);
+            $due_date = date_add($date, date_interval_create_from_date_string('40 days'));
+
+            $GLOBALS['DB']->exec("INSERT INTO checkouts (patron_id, copy_id, due_date, checkout_date, checkin_date) VALUES
+            '{$patron_id}',
+            '{$this->getId()}',
+            '{$due_date}',
+            '{$checkout_date}'
+            ");
+        }
 
 
     }

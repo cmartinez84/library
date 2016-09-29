@@ -97,6 +97,16 @@ class CopyTest extends PHPUnit_Framework_TestCase
 
             $this->assertEquals(44, $updated_copy->getBookId());
         }
+        function test_checkout()
+        {
+            $id =null;
+            $book_id =3;
+            $new_copy = new Copy($id, $book_id);
+            $new_copy->save();
+
+            $result = $new_copy->checkOut(234, "2000-01-11");
+            $this->assertEquals("2000-01-25", $result);
+        }
 
 
 
