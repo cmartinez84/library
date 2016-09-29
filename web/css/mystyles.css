@@ -2,6 +2,7 @@ body{
     background: url('/img/books.jpg') center center no-repeat;
     background-attachment: fixed;
     background-size: cover;
+    text-decoration: none;
 }
 #conan{
     border-radius: 100%;
