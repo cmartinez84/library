@@ -120,5 +120,18 @@ class PatronTest extends PHPUnit_Framework_TestCase
 
             $this->assertEquals("The Third Chimpanzee", $result->getTitle());
         }
+        function test_update_balanace()
+        {
+            $new_patron = new Patron(null, "Same");
+            $new_patron->save();
+            $new_patron_id = $new_patron->getId();
+            $new_patron = $new_patron->updateBalance(11.99);
+            $found_patron = Patron::find($new_patron_id);
+            var_dump($found_patron);
+
+            $result = $found_patron->getFine();
+
+            $this->assertEquals(11.99, $result);
+        }
     }
 ?>

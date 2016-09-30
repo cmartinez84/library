@@ -41,6 +41,9 @@
         {
             $GLOBALS['DB']->exec("UPDATE patrons SET name ='{$new_name}' WHERE id={$this->getId()};");
         }
+        function updateBalance($new_fine){
+            $GLOBALS['DB']->exec("UPDATE patrons SET fine ='{$new_fine}' WHERE id={$this->getId()};");
+        }
          function getHistory()
         {
             $histories = $GLOBALS['DB']->query("SELECT * FROM checkouts WHERE patron_id={$this->getId()};");
