@@ -2,7 +2,9 @@ body{
     background: url('/img/books.jpg') center center no-repeat;
     background-attachment: fixed;
     background-size: cover;
-    text-decoration: none;
+}
+ul{
+    list-style: none !important;
 }
 #conan{
     border-radius: 100%;

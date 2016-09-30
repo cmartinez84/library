@@ -58,6 +58,10 @@
                 $new_copy->save();
             }
         }
+        function updateMultiple($numberToChage)
+        {
+
+        }
         function delete()
         {
           $GLOBALS['DB']->exec("DELETE FROM books WHERE id={$this->getId()};");

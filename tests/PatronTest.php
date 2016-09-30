@@ -3,17 +3,17 @@
     * @backupGlobals disabled
     * @backupStaticAttributes disabled
     */
-require_once "src/Patron.php";
-require_once "src/Book.php";
-require_once "src/Checkout.php";
-require_once "src/Copy.php";
+    require_once "src/Patron.php";
+    require_once "src/Book.php";
+    require_once "src/Checkout.php";
+    require_once "src/Copy.php";
 
 
 // require_once "src/.php";
 
 
 
-    $server = 'mysql:host=localhost;dbname=library_test';
+    $server = 'mysql:host=localhost:8889;dbname=library_test';
     $username = 'root';
     $password = 'root';
     $DB = new PDO($server, $username, $password);

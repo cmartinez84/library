@@ -1,21 +1,3 @@
--- phpMyAdmin SQL Dump
--- version 4.6.4
--- https://www.phpmyadmin.net/
---
--- Host: localhost
--- Generation Time: Sep 29, 2016 at 04:12 PM
--- Server version: 5.6.28
--- PHP Version: 7.0.10
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
 --
 -- Database: `library`
 --
@@ -90,7 +72,8 @@ CREATE TABLE `checkouts` (
 
 CREATE TABLE `copies` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `book_id` int(11) DEFAULT NULL
+  `book_id` int(11) DEFAULT NULL,
+  `available` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -101,7 +84,8 @@ CREATE TABLE `copies` (
 
 CREATE TABLE `patrons` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL
+  `name` varchar(255) NOT NULL,
+  `fine` decimal(12,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --

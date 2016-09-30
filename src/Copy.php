@@ -76,12 +76,14 @@
                 return $a[0];
             }
         }
-        // static function availableCopies($book_id){
-        //     $result = $GLOBALS['DB']->query("SELECT COUNT(book_id) FROM copies WHERE book_id={$book_id} AND availble = 1;");
-        //     foreach($result as $a){
-        //         return $a[0];
-        //     }
-        // }
+        static function availableCopies($book_id){
+            $result = $GLOBALS['DB']->query("SELECT COUNT(book_id) FROM copies WHERE book_id={$book_id} AND available IS TRUE;");
+
+            foreach($result as $a){
+                var_dump($a[0]);
+                return $a[0];
+            }
+        }
         // static function getOverDues()
         // {
         //     $returned_checkout = $GLOBALS['DB']->query("SELECT * FROM checkouts WHERE checkin_date IS NULL;");

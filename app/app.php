@@ -18,7 +18,7 @@
 
     $app['debug'] = true;
 
-    $server = 'mysql:host=localhost;dbname=library_test';
+    $server = 'mysql:host=localhost:8889;dbname=library_test';
     $username = 'root';
     $password = 'root';
     $DB = new PDO($server, $username, $password);
@@ -42,7 +42,6 @@
 
     $app->get("/librarian/patron/{id}", function($id) use ($app) {
         $found_patron = Patron::find($id);
-        var_dump($found_patron);
         return $app['twig']->render('librarian.html.twig', array('allBooks'=> Book::getAll(), 'allPatrons'=> Patron::getAll(), 'patron' =>$found_patron, 'availableCopies'=> null,'book'=>null, 'totalCopies' => null));
     });
     $app->patch("/librarian/patron/edit/{id}", function($id) use ($app) {
@@ -66,11 +65,21 @@
 
     $app->get("/librarian/book/{id}", function($id) use ($app) {
         $found_book = Book::find($id);
+        $totalCopies = Copy::numberOfCopies($found_book->getId());
+        $availableCopies = Copy::availableCopies($found_book->getId());
+        return $app['twig']->render('librarian.html.twig', array('allBooks'=> Book::getAll(), 'allPatrons'=> Patron::getAll(), 'patron' => null, 'book'=>$found_book, 'totalCopies' =>$totalCopies, 'availableCopies' => $availableCopies));
+        });
 
-        $totalCopies =Copy::numberOfCopies($found_book->getId());
-        // $availableCopies =Copy::availableCopies($found_book->getId());
-        return $app['twig']->render('librarian.html.twig', array('allBooks'=> Book::getAll(), 'allPatrons'=> Patron::getAll(), 'patron' => null, 'book'=>$found_book, 'totalCopies' =>$totalCopies, 'availableCopies' => null));
-    });
+    $app->patch("/librarian/book/edit/{id}", function($id) use ($app) {
+        $found_book = Book::find($id);
+        $found_book->update($_POST['title'], $_POST['author'], null);
+        return $app['twig']->render('librarian.html.twig', array('allBooks'=> Book::getAll(), 'allPatrons'=> Patron::getAll(), 'patron' => null, 'book'=>$found_book, 'totalCopies' =>null, 'availableCopies' => null));
+        });
+    $app->delete("/librarian/book/delete/{id}", function($id) use ($app) {
+        $found_book = Book::find($id);
+        $found_book->delete();
+        return $app['twig']->render('librarian.html.twig', array('allBooks'=> Book::getAll(), 'allPatrons'=> Patron::getAll(), 'patron' => null, 'book'=>$found_book, 'totalCopies' =>null, 'availableCopies' => null));
+        });
 
 
     return $app;
